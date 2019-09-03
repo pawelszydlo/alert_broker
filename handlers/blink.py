@@ -1,8 +1,9 @@
 """Handler using the ThingM blink(1)."""
 
+import logging
 import time
 from .handler import Handler
-from blink1.blink1 import Blink1
+from blink1.blink1 import Blink1, Blink1ConnectionFailed
 
 
 class BlinkHandler(Handler):
@@ -14,7 +15,11 @@ class BlinkHandler(Handler):
         super(BlinkHandler, self).__init__(*args, **kwargs)
 
     def blink(self):
-        blink1 = Blink1()
+        try:
+            blink1 = Blink1()
+        except Blink1ConnectionFailed as e:
+            logging.error('Blink1 error: %s', e)
+            return
         blink1.fade_to_color(300, self.color)
         time.sleep(0.3)
         blink1.fade_to_color(300, '#000000')

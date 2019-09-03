@@ -36,13 +36,15 @@ class Broker:
 
     def trigger(self, alert: int):
         """Trigger alert."""
-        LOGGER.info('Triggering: %s', alert)
-        self._active_alerts.add(alert)
+        if alert not in self._active_alerts:
+            LOGGER.info('Triggering: %s', alert)
+            self._active_alerts.add(alert)
 
     def stop(self, alert: int):
         """Stop an alert."""
-        LOGGER.info('Stopping: %s', alert)
-        self._active_alerts -= {alert}
+        if alert in self._active_alerts:
+            LOGGER.info('Stopping: %s', alert)
+            self._active_alerts -= {alert}
 
     async def alert_monitor(self):
         """Start the alert monitor loop."""
