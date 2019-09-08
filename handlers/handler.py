@@ -2,9 +2,8 @@
 
 
 class Handler:
-    def __init__(self, alert: str, interval=2):
+    def __init__(self, alert: str):
         self.broker = None
-        self.interval = interval
         self.alert = alert
 
     def alert_on(self):
