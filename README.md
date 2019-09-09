@@ -8,6 +8,7 @@ Easily extensible through custom triggers and custom alert handlers.
 - Random (for testing)
 
 #### Included handlers
-- ThingM blink(1) blinking.
+- ThingM blink(1) blinking
+- Run shell command
 
 *Requires Python 3.7 for asyncio.*

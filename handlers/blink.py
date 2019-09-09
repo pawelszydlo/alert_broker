@@ -8,11 +8,9 @@ from blink1.blink1 import Blink1, Blink1ConnectionFailed
 
 class BlinkHandler(Handler):
 
-    def __init__(self, *args, **kwargs):
-        self.color = '#ffffff'
-        if 'color' in kwargs:
-            self.color = kwargs.pop('color')
-        super(BlinkHandler, self).__init__(*args, **kwargs)
+    def __init__(self, alert, color: str = '#ffffff'):
+        super(BlinkHandler, self).__init__(alert)
+        self.color = color
 
     def blink(self):
         try:

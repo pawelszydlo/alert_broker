@@ -7,11 +7,12 @@ from .handler import Handler
 
 class CommandHandler(Handler):
 
-    def __init__(self, *args, **kwargs):
-        self.command_on = kwargs.pop('command_on', None)
-        self.command_off = kwargs.pop('command_off', None)
-        self.command_ongoing = kwargs.pop('command_ongoing', None)
-        super(CommandHandler, self).__init__(*args, **kwargs)
+    def __init__(self, alert, command_on: str = None, command_off: str = None,
+                 command_ongoing: str = None):
+        super(CommandHandler, self).__init__(alert)
+        self.command_on = command_on
+        self.command_off = command_off
+        self.command_ongoing = command_ongoing
 
     def alert_on(self):
         if self.command_on:

@@ -8,17 +8,13 @@ from .trigger import Trigger
 
 class CommandTrigger(Trigger):
 
-    def __init__(self, *args, **kwargs):
-        self.command = kwargs.pop('command')  # type: str
-        if 'regexp' in kwargs:
-            self.regexp = re.compile(kwargs.pop('regexp'))
-        else:
-            self.regexp = None
-        if 'negative_regexp' in kwargs:
-            self.negative_regexp = re.compile(kwargs.pop('negative_regexp'))
-        else:
-            self.negative_regexp = None
-        super(CommandTrigger, self).__init__(*args, **kwargs)
+    def __init__(self, alert, command: str, regexp: str = None,
+                 negative_regexp: str = None, interval: int = 10):
+        super(CommandTrigger, self).__init__(alert, interval)
+        self.command = command
+        self.regexp = re.compile(regexp) if regexp else None
+        self.negative_regexp = (
+            re.compile(negative_regexp) if negative_regexp else None)
 
     def tick(self):
         process = subprocess.Popen(self.command.split(), stdout=subprocess.PIPE)
